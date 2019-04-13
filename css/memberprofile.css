@@ -1,6 +1,11 @@
 body{  
    
 }
+.img-thumbnail {
+    display: inline-block;
+    max-width: 20%;
+    height: auto;
+    padding: 4px;
 .avatar{
 	width: 150px;
 }

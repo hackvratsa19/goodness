@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 include 'includes/connection.php';
 if (isset($_POST['reg_user'])) {
     // receive all input values from the form

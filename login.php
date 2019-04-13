@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'includes/connection.php';
 
 
@@ -26,3 +27,5 @@ if (isset($email)) {
         header('Location: login1.php?error="Грешен имейл или парола222"');
     }
 }
+ $_SESSION['user_name'] = $name;
+ $_SESSION['user_id'] = $user_id;

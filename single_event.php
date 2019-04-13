@@ -1,9 +1,17 @@
 <?php 
 include "includes/connection.php";
-$read_query = "SELECT * FROM users";
-$result = mysqli_query($conn, $read_query);
-  if(mysqli_num_rows($result) > 0){ ?>
+// $sql = "SELECT *, events.id AS event_id, events.picture AS event_pic, users.picture AS user_pic FROM events JOIN `users` ON `events`.`user_id` = `users`.`id` WHERE `event_id` = 1 ";
+$sql = "SELECT e.id, `description`, loc.location, e.picture, `title`, `start_at`, `ends_at`, `location_id`, `user_id` FROM events e JOIN locations loc ON loc.id = e.location_id JOIN users u ON u.id = e.user_id WHERE e.id =" . $_GET['event_id'];
+
+// $read_query = "SELECT * FROM users WHERE id=1";
+$result = mysqli_query($conn, $sql);
+
+
+  if(mysqli_num_rows($result) > 0){
+   ?>
+
       <?php while($row = mysqli_fetch_assoc($result)){ ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -35,7 +43,7 @@ $result = mysqli_query($conn, $read_query);
   background-size: cover;">
 <div class="container bootstrap snippet">
     <div class="row">
-  		<div class="col-sm-10"><h2><?= $row['name'] ?> <?= $row['last_name'] ?></h2></div>
+  		<div class="col-sm-10"><h2><?= $row['title'] ?></h2></div>
   		
   		<div class="col-sm-2"><a href="/users" class="pull-right"><img src="images/logo_3.png" class="avatar" alt="avatar"></a></div>
     </div>
@@ -50,8 +58,9 @@ $result = mysqli_query($conn, $read_query);
         </div><!--/col-3-->
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Лична информация</a></li>
-                <li><a data-toggle="tab" href="#messages">Стена на славата</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">Информация за добрината</a></li>
+                <li><a data-toggle="tab" href="#messages">Участници</a></li>
+                <li><a data-toggle="tab" href="#helpers">Помагачи</a></li>
               </ul>
               
           <div class="tab-content">
@@ -73,32 +82,32 @@ $result = mysqli_query($conn, $read_query);
                       <div class="form-group">
                           
                           <div class="col-xs-6">
-                              <label for="phone"><h3>Mail:</h3></label>
-                               <h4><?= $row['email'] ?></h4>
+                              <label for="phone"><h3>Описание</h3></label>
+                               <h4><?= $row['description'] ?></h4>
                           </div>
                       </div>
           
                       <div class="form-group">
                           <div class="col-xs-6">
-                             <label for="mobile"><h3>Facebook:</h3></label>
-                              <h4><?= $row['fb'] ?></h4>
+                             <label for="mobile"><h3>старт</h3></label>
+                              <h4><?= $row['start_at'] ?></h4>
                           </div>
                       </div>
                       <div class="form-group">
-                          
-                          
-                      </div>
-                      <div class="form-group">
-                          
-                          
-                      </div>
-                      <div class="form-group">
-                          
                           <div class="col-xs-6">
-                              <label for="password"><h3>Години:</h3></label>
-                               <h4><?= $row['age'] ?></h4>
+                             <label for="mobile"><h3>край</h3></label>
+                              <h4><?= $row['ends_at'] ?></h4>
                           </div>
                       </div>
+                      <div class="form-group">
+                          
+                          
+                      </div>
+                      <div class="form-group">
+                          
+                          
+                      </div>
+                     
                       <div class="form-group">
        
                       </div>
@@ -108,17 +117,41 @@ $result = mysqli_query($conn, $read_query);
               <hr>
               
              </div><!--/tab-pane-->
+
              <div class="tab-pane" id="messages">
+               <?php
+                $sql_members = "SELECT u.id, `user_id`, `event_id`, `score`, u.name, u.picture FROM `event_members` e_m JOIN users u ON u.id = e_m.user_id";
+                $members_result = mysqli_query($conn, $sql_members);
+                    if(mysqli_num_rows($members_result) > 0){ 
+                      while($row = mysqli_fetch_assoc($members_result)){ ?>
+                        <div class="text-center">
+        <img src="images/<?= $row['picture'] ?>" class="avatar1 img-thumbnail" alt="avatar">
+        <span><h4><?= $row['name'] ?></h4></span>
+      </div></hr><br>
+        
+                    <?php  }
+                  }
+                ?>
+                <hr>
+              
+             </div><!--/tab-pane-->
+
+             <div class="tab-pane" id="helpers">
+               <?php
+                $sql_helpers = "SELECT u.id, `user_id`, `event_id`, `score`, u.name, u.picture FROM `event_helpers` e_m JOIN users u ON u.id = e_m.user_id";
+                $helpers_result = mysqli_query($conn, $sql_helpers);
+                    if(mysqli_num_rows($helpers_result) > 0){ 
+                      while($row = mysqli_fetch_assoc($helpers_result)){ ?>
+                        <div class="text-center">
+        <img src="images/<?= $row['picture'] ?>" class="avatar1 img-thumbnail" alt="avatar">
+        <span><h4><?= $row['name'] ?></h4></span>
+      </div></hr><br>
+        
+                    <?php  }
+                  }
+                ?>
+                
                
-               <h2></h2>
-               
-               <hr>
-                  <form class="form" action="##" method="post" id="registrationForm">
-                      <div class="form-group">
-                          
-                          <h1>I am yeeeeeaaaa</h1>
-                      
-              	</form>
                
              </div><!--/tab-pane-->
              
@@ -130,7 +163,7 @@ $result = mysqli_query($conn, $read_query);
                                              
 
 
-<a href="updateProfileInfo1.php?user=<?= $row['id'] ?>" class="button">Промени</a>
+<a href="updateProfileInfo1.php?user=<?= $row['id'] ?>" class="button">Участвай</a>
 
                    
                           <?php } ?>  
