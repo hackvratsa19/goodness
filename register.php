@@ -1,6 +1,6 @@
 
 <?php
-include 'includes/db_connect.php';
+include 'includes/connection.php';
 if (isset($_POST['reg_user'])) {
     // receive all input values from the form
     $name = mysqli_real_escape_string($conn, $_POST['name']);
