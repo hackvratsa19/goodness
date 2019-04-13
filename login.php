@@ -12,21 +12,24 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 if (isset($email)) {
     $q_read = "SELECT * FROM `users` where `email` = '$email'";
 
-// if (password_verify($password, $stored_secret))
-// { 
-//   //Password OK
-// }
+$user_check_query = "SELECT * FROM users WHERE email='" . $email . "'";
+    $result = mysqli_query($conn, $user_check_query);
+    
+    if (mysqli_num_rows($result) > 0) {
+        header('Location: login1.php?error="Имейлът съществува"');
+      // echo 'success';
+        }
     $result = mysqli_query($conn, $q_read);
     if (mysqli_num_rows($result) > 0) {
         // echo "Success!";
         while ($row = mysqli_fetch_assoc($result)) {
             if (password_verify($password, $row["password"]))
 { 
-  echo 'ok';
+  header('Location: index.php');
+
 } 
             }
-            // header('Location: index.php');
-
+            
         }
     }
   
