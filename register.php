@@ -30,8 +30,8 @@ $age = mysqli_real_escape_string($conn, $_POST['age']);
         
          $result = mysqli_query($conn, $query);
          var_dump($result);
-        $_SESSION['name'] = $name;
+        $_SESSION['user_name'] = $name;
          $_SESSION['user_id'] = $user_id;
-       
+       header('Location: pre-index.php');
     }
     }
