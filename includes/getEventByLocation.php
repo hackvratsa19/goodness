@@ -1,7 +1,7 @@
 <?php
 function getEventByLocation($location){
 include 'includes/connection.php';
-$sql = "SELECT *,events.picture AS event_pic, users.picture AS user_pic FROM events JOIN `users` ON `events`.`user_id` = `users`.`id` WHERE `location_id` = '".$location."' AND `is_active` IS NOT NULL";
+$sql = "SELECT *,events.id AS event_id,events.picture AS event_pic, users.picture AS user_pic FROM events JOIN `users` ON `events`.`user_id` = `users`.`id` WHERE `location_id` = '".$location."' AND `is_active` IS NOT NULL";
 $result = $conn->query($sql);
 
 $data = [];

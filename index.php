@@ -151,8 +151,8 @@
                   <?php echo strlen($event['description']) > 120?substr($event['description'],0,120).'...':$event['description']; ?>
                   </p>
                   <p>
-                      <a href="#"><button type="button" class="btn btn-primary">Вземи участие</button></a>
-                      <button type="button" class="btn btn-success">Бъди помощник</button>
+                      <a href="./singleEvent.php?event_id=<?php echo $event['event_id'] ?>"><button type="button" class="btn btn-primary">Вземи участие</button></a>
+                      <a href="./singleEvent.php?event_id=<?php echo $event['event_id'] ?>"><button type="button" class="btn btn-success">Бъди помощник</button></a>
                   </p>
             </div>
 
