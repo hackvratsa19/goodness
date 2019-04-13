@@ -53,20 +53,17 @@ if(isset($_POST['submit'])){
 	$age 		= $_POST['age'];
 	$location 	= $_POST['location'];
 	$filename=$_FILES['file_to_upload']['name'];
-		$uploads_dir = 'images/';   
-	$target_file = $uploads_dir . basename($_FILES["file_to_upload"]["name"]);
-	$upload_ok = 1;
-	$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-	var_dump(move_uploaded_file($name, $target_file));
-if (move_uploaded_file($filename, 'images/')) {
-			$file = $_FILES['file_to_upload'];
-			}
-	var_dump($file);
+		$target_dir = "images/";
+   $target_file = $target_dir . basename($_FILES["file_to_upload"]["name"]);
+
+
+   move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $target_file);
+
 	$update_query = "UPDATE `users` SET `name`= '$name',`last_name`='$last_name',`location`='$location',`picture`='$filename',`fb`='$fb',`email`='$email',`age`=$age WHERE id = $user_id";
 	$result_update1 = mysqli_query($conn, $update_query);
 	if($result_update1){
 		// echo "Success!";
-			//header('Location: ./memberprofile.php');
+			header('Location: ./memberprofile.php');
 		exit;
 	} else {
 		echo mysqli_error($conn);
