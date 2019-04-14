@@ -1,13 +1,14 @@
-body{
-
+body{  
+   
 }
 .img-thumbnail {
+  float: left;
     display: inline-block;
-    max-width: 20%;
+   max - width: 30%;
     height: auto;
     padding: 4px;
 .avatar{
-	width: 150px;
+  width: 150px;
 }
 h4{
 font-style: italic;
@@ -36,22 +37,22 @@ font-weight: bold;
   transform: translateY(4px);
 }
 .button{
-	position: relative;
-	left: 5%;
+  position: relative;
+  left: 5%;
 }
 input{
-	position: relative;
-	left: 10%;
+  position: relative;
+  left: 10%;
 }
-
-.img-in-table{
-    width:10vw;
+.pic {
+  float: left;
+    display: inline-block;
+    width: 20%;
+    height: auto;
+    padding: 4px;
 }
-
-table{
-    background-color: rgba(255, 255, 255, 0.7) !important;
-}
-
-a:hover{
-    text-decoration:none !important;
+.avatar1{
+  float: left;
+    display: inline-block;
+    width: 20%;
 }
