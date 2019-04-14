@@ -18,7 +18,7 @@
     <h2 class="fs-title">Вход</h2>
     <?php
     if (isset($_GET['error'])) {
-       echo '<span style="color:#f00;text-align:center;">Имейлът е вече зает</span>';;
+       echo '<span style="color:#f00;text-align:center;">Грешен имейл или парола</span>';;
     }
      ?>
     <input type="text" name="email" placeholder="Email" required id="email" />

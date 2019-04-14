@@ -1,6 +1,7 @@
 
 <?php
-include 'includes/db_connect.php';
+session_start();
+include 'includes/connection.php';
 if (isset($_POST['reg_user'])) {
     // receive all input values from the form
     $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -15,9 +16,10 @@ if (isset($_POST['reg_user'])) {
 
     $fb = mysqli_real_escape_string($conn, $_POST['fb']);
 
-$age = mysqli_real_escape_string($conn, $_POST['age']);
- $email = mysqli_real_escape_string($conn, $_POST['email']);
- $user_check_query = "SELECT * FROM users WHERE email='" . $email . "'";
+    $age = mysqli_real_escape_string($conn, $_POST['age']);
+
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $user_check_query = "SELECT * FROM users WHERE email='" . $email . "'";
     $result = mysqli_query($conn, $user_check_query);
     
     if (mysqli_num_rows($result) > 0) {
@@ -30,8 +32,8 @@ $age = mysqli_real_escape_string($conn, $_POST['age']);
         
          $result = mysqli_query($conn, $query);
          var_dump($result);
-        $_SESSION['name'] = $name;
-         $_SESSION['user_id'] = $user_id;
-       
+          $_SESSION['user_name'] = $name;
+          $_SESSION['user_id'] = $user_id;
+       header('Location: pre-index.php');
     }
     }
