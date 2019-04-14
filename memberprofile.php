@@ -1,6 +1,15 @@
 <?php 
+session_start();
 include "includes/connection.php";
-$read_query = "SELECT * FROM users";
+$idUser = 1;
+$read_query1 = "SELECT * FROM `users` JOIN locations ON users.location=locations.location WHERE 1";
+
+$result1 = mysqli_query($conn, $read_query1);
+
+$row_user = mysqli_fetch_assoc($result1);
+$locations_query = "SELECT * FROM locations";
+$locations_result = mysqli_query($conn, $locations_query);
+$read_query = "SELECT * FROM `users` WHERE `id` = $idUser";
 $result = mysqli_query($conn, $read_query);
   if(mysqli_num_rows($result) > 0){ ?>
       <?php while($row = mysqli_fetch_assoc($result)){ ?>
@@ -52,6 +61,7 @@ $result = mysqli_query($conn, $read_query);
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Лична информация</a></li>
                 <li><a data-toggle="tab" href="#messages">Стена на славата</a></li>
+                <li><a data-toggle="tab" href="#good">Създай добрина</a></li>
               </ul>
               
           <div class="tab-content">
@@ -119,8 +129,80 @@ $result = mysqli_query($conn, $read_query);
                           <h1>I am yeeeeeaaaa</h1>
                       
               	</form>
-               
+               </div>
              </div><!--/tab-pane-->
+             <div class="tab-pane" id="good">
+            		
+               	
+                  <hr>
+                  <form class="form" action="goodnessCreate.php" method="post" id="registrationForm" enctype="multipart/form-data">
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>Заглавие</h4></label>
+                              <input type="text" class="form-control" name="title" id="title" placeholder="Заглавие" title="Заглавието но вошото добрина:">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Описание</h4></label>
+                              <input type="text" class="form-control" name="description" id="description" placeholder="Описание" title="Описание">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="phone"><h4>Начало</h4></label>
+                              <input type="datetime-local" name="start">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label for="mobile"><h4>Край</h4></label>
+                             <input type="datetime-local" name="end">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Местоположение</h4></label>
+                              <select class="form-control" id="location" name="location">
+									<?php if(mysqli_num_rows($locations_result) > 0){ ?>
+
+										<?php while($row = mysqli_fetch_assoc($locations_result)){ ?>
+
+											<option value="<?= $row['id']; ?>" <?php if( $row['location'] == $row_user['location']) { echo 'selected'; } ?> ><?= $row['location'] ?></option>
+
+										<?php } ?>
+
+									<?php } ?>
+								</select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Снимка</h4></label>
+                              <input type="file" id="input-file" name="file_to_upload" size="40" class="text-center center-block file-upload" onchange='$("#upload-file-info").html($(this).val());'>
+				&nbsp;
+                          </div>
+                      </div>
+                      
+                   
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success pull-right" type="submit" name="goodButton"><i class="glyphicon glyphicon-ok-sign"></i>Запази</button>
+                               	<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
+                            </div>
+                      </div>
+              	</form>
+              </div>
+               
+              </div><!--/tab-pane-->
              
           </div><!--/tab-content-->
 

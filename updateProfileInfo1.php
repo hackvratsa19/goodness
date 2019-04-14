@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
 
    move_uploaded_file($_FILES["file_to_upload"]["tmp_name"], $target_file);
 
-	$update_query = "UPDATE `users` SET `name`= '$name',`last_name`='$last_name',`location`='$location',`picture`='$filename',`fb`='$fb',`email`='$email',`age`=$age WHERE id = $user_id";
+	$update_query = "UPDATE `users` SET `name`= '$name',`last_name`='$last_name',`location`='$location',`picture`='$filename',`fb`='$fb',`email`='$email',`age`=$age WHERE id = 1";
 	$result_update1 = mysqli_query($conn, $update_query);
 	if($result_update1){
 		// echo "Success!";
