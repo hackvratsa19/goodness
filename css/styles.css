@@ -91,7 +91,23 @@ section.features, section.blog-intro, section.blog {
 
 .user-org-pic{
     width: 5vw !important;
+    float:left;
+    border-radius: 25%;
 }
+
+.starts_at_span{
+    float:left;
+    color:#7CFC00 !important;
+}
+.ends_at_span{
+    float:right;
+    color:#F00 !important;
+}
+
+.helper-btn{
+    float:right;
+}
+
 /* ==========================================================================
 Global Styles
 ========================================================================== */
@@ -380,6 +396,10 @@ Hero
   width: 100%;
   z-index: 999;
   background-color: rgba(255, 255, 255, 0.7);
+ }
+
+ .footer-logo{
+     width:5vw;
  }
 
 .fixed {
